@@ -1,7 +1,10 @@
 ﻿{
     "port":  8888,
-    "testsPort":  8889,
+    "testsPort":  8890,
     "plugins":  [
                     "./aidev-plugin-starter"
-                ]
+                ],
+    "mappings":  {
+                     "wp-content/plugins/aidev-plugin-starter":  "./aidev-plugin-starter"
+                 }
 }
