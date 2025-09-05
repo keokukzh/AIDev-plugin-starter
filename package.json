@@ -20,6 +20,7 @@
                     "e2e":  "playwright test --project=chromium --workers=1 --reporter=line",
                     "e2e:start":  "wp-env start",
                     "e2e:stop":  "wp-env stop",
-                    "e2e:ci":  "npm run e2e:start \u0026\u0026 npx wait-on http://localhost:8888 \u0026\u0026 npx playwright install --with-deps chromium \u0026\u0026 npm run e2e:report \u0026\u0026 npm run e2e:stop"
+                    "e2e:ci":  "npm run e2e:start \u0026\u0026 npx wait-on http://localhost:8888 \u0026\u0026 npx playwright install --with-deps chromium \u0026\u0026 npm run e2e:report \u0026\u0026 npm run e2e:stop",
+                    "e2e:report":  "playwright test --project=chromium --workers=1 --reporter=junit,html,line"
                 }
 }
