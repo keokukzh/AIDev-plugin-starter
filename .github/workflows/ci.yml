@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 on:
   push:
@@ -55,6 +55,17 @@ jobs:
 
       - name: Run E2E (wp-env + Playwright)
         run: npm run e2e:ci
+      - name: wp-env logs (always)
+        if: always()
+        run: npx wp-env logs --all > wp-env.log || true
+
+      - name: Upload wp-env logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp-env-logs
+          path: wp-env.log
+          if-no-files-found: ignore
 
       - name: Upload Playwright HTML report
         if: always()
