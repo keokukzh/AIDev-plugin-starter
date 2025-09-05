@@ -20,9 +20,9 @@
                     "stan":  "php -d memory_limit=1536M vendor/phpstan/phpstan/phpstan analyse aidev-plugin-starter --no-progress",
                     "test":  "phpunit --configuration phpunit.xml.dist",
                     "e2e":  "playwright test --project=chromium --workers=1 --reporter=line",
-                    "e2e:start":  "wp-env destroy --all || true\nwp-env --version\nwp-env start --debug --update || (wp-env logs --docker || true; wp-env logs || true; exit 1)\nwp-env run cli wp plugin list\nwp-env run cli wp plugin activate aidev-plugin-starter/aidev-plugin-starter.php\nwp-env run cli wp option get siteurl",
+                    "e2e:start":  "npx wp-env start `  \u0026\u0026 npx wp-env run cli wp plugin activate aidev-plugin-starter || true `  \u0026\u0026 npx wp-env run tests-cli wp plugin activate aidev-plugin-starter || true `  \u0026\u0026 npx wp-env run cli wp plugin list `  \u0026\u0026 npx wp-env run tests-cli wp plugin list",
                     "e2e:stop":  "wp-env stop",
-                    "e2e:ci":  "npm run e2e:start \u0026\u0026 npm run e2e:install \u0026\u0026 npm run e2e:test \u0026\u0026 npm run e2e:report || true \u0026\u0026 npm run e2e:stop",
+                    "e2e:ci":  "npm run e2e:start `  \u0026\u0026 npx wait-on http://localhost:8888 `  \u0026\u0026 npx wait-on http://localhost:8889 `  \u0026\u0026 npx playwright install --with-deps chromium `  \u0026\u0026 npm run e2e:test || true `  \u0026\u0026 npm run e2e:report || true `  \u0026\u0026 npm run e2e:stop",
                     "e2e:report":  "node -e \"process.exit(0)\"",
                     "e2e:install":  "npx playwright install --with-deps chromium",
                     "e2e:test":  "npx playwright test"
