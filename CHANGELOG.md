@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/keokukzh/AIDev-plugin-starter/compare/v1.0.0...v1.1.0) (2025-09-05)
+
+
+### Features
+
+* initial automated release ([5544c15](https://github.com/keokukzh/AIDev-plugin-starter/commit/5544c15d9b0aa97cc64401d3c1d034f4da320d21))
+
 # 1.0.0 (2025-09-05)
 
 
