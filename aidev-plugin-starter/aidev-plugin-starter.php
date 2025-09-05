@@ -260,7 +260,7 @@ function aidev_ps_register_public_rest(): void {
 		'/message',
 		array(
 			'methods'             => 'GET',
-			'permission_callback' => '__return_true', // public
+			'permission_callback' => '__return_true', // Public.
 			'callback'            => function () {
 				$message = get_option( 'aidev-plugin-starter_message', 'Hello from AIDev' );
 				return new \WP_REST_Response(
@@ -272,3 +272,47 @@ function aidev_ps_register_public_rest(): void {
 	);
 }
 add_action( 'rest_api_init', 'aidev_ps_register_public_rest' );
+<?php
+// === AIDev Agent bootstrap (appended) ======================================
+require_once __DIR__ . '/includes/class-aidev-agent.php';
+require_once __DIR__ . '/includes/rest-agent.php';
+
+add_action( 'admin_menu', function () {
+add_options_page(
+'AIDev Plugin Starter',
+'AIDev Plugin',
+'manage_options',
+'aidev-plugin-starter',
+'aidev_plugin_starter_render'
+);
+} );
+
+function aidev_plugin_starter_render() {
+?>
+<div class="wrap">
+<h1>AIDev Plugin Starter</h1>
+<p>Kurzer Agent-Test. Die Admin-Seite spricht mit <code>/wp-json/aidev/v1/agent</code>.</p>
+<textarea id="aidev-msg" rows="5" style="width:100%;">Sag Hallo!</textarea>
+<p><button class="button button-primary" id="aidev-send">Fragen</button></p>
+<pre id="aidev-reply" style="background:#111;color:#0f0;padding:12px;"></pre>
+</div>
+<script>
+(function(){
+const btn = document.getElementById('aidev-send');
+btn.addEventListener('click', async () => {
+const msg = (document.getElementById('aidev-msg')).value;
+const url = (window.ajaxurl || '').includes('admin-ajax.php')
+? window.ajaxurl.replace('admin-ajax.php','rest_route=/aidev/v1/agent')
+: (location.origin + '/?rest_route=/aidev/v1/agent');
+const r = await fetch(url, {
+method: 'POST',
+headers: {'Content-Type':'application/json'},
+body: JSON.stringify({message: msg})
+});
+const j = await r.json();
+document.getElementById('aidev-reply').textContent = JSON.stringify(j, null, 2);
+});
+})();
+</script>
+<?php
+}
