@@ -1,23 +1,59 @@
-name: E2E - Playwright
+name: E2E - Playwright (wp-env)
 
 on:
-  workflow_dispatch:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   e2e:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+
       - name: Install deps
         run: npm ci || npm install
-      - name: Install Playwright
+
+      - name: Install Playwright browsers
         run: npm run e2e:install
+
+      # Startet Docker-WordPress gemäß .wp-env.json und aktiviert dein Plugin
+      - name: Start WordPress (wp-env)
+        run: npx wp-env start
+
+      # Warten bis WP antwortet (Port 8888)
+      - name: Wait for WP to be ready
+        run: |
+          for i in {1..60}; do
+            if curl -fsS http://localhost:8888 > /dev/null; then
+              echo "WordPress is up ✨"
+              exit 0
+            fi
+            echo "Waiting for WordPress... ($i/60)"
+            sleep 5
+          done
+          echo "WordPress did not start in time" >&2
+          exit 1
+
       - name: Run E2E tests
         env:
-          E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
+          E2E_BASE_URL: http://localhost:8888
         run: npm run e2e
+
+      # Logs immer anzeigen, auch bei Fehlern
+      - name: wp-env logs (always)
+        if: always()
+        run: npx wp-env logs --all || true
+
+      # Container aufräumen, auch bei Fehlern
+      - name: Stop WordPress (always)
+        if: always()
+        run: npx wp-env stop
