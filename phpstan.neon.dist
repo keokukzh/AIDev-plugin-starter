@@ -7,4 +7,6 @@ parameters:
   excludePaths:
     - tests/*
     - vendor/*
-  checkMissingIterableValueType: false
+  # Wenn du fehlende Array-Typen ignorieren willst, nutze identifier:
+  # ignoreErrors:
+  #   - identifier: missingType.iterableValue
