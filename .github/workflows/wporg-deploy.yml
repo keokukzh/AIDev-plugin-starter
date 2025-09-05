@@ -1,0 +1,29 @@
+name: Deploy to WordPress.org
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build ZIP artifact
+        run: |
+          mkdir -p dist
+          zip -r dist/aidev-plugin-starter.zip aidev-plugin-starter -x "**/.DS_Store" "**/.git/**" "**/node_modules/**" "**/vendor/**" "**/tests/**" "**/.github/**"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aidev-plugin-starter-zip
+          path: dist/aidev-plugin-starter.zip
+      - name: WordPress.org Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: false
+          svn-password: ${ secrets.WPORG_SVN_PASSWORD }
+          svn-username: ${ secrets.WPORG_SVN_USERNAME }
+          slug: aidev-plugin-starter

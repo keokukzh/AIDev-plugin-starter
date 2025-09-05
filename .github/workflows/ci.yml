@@ -1,0 +1,45 @@
+name: CI - Lint, Static Analysis & Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer, cs2pr
+      - name: Install Composer deps
+        run: composer install --no-interaction --prefer-dist
+      - name: Run PHPCS
+        run: composer run lint || true
+      - name: Annotate PHPCS
+        if: always()
+        run: vendor/bin/phpcs -q --report=checkstyle | cs2pr
+      - name: PHPStan
+        run: composer run stan
+      - name: PHPUnit
+        run: composer run test
+  build-zip:
+    runs-on: ubuntu-latest
+    needs: php-tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build ZIP artifact
+        run: |
+          mkdir -p dist
+          zip -r dist/aidev-plugin-starter.zip aidev-plugin-starter -x "**/.DS_Store" "**/.git/**" "**/node_modules/**" "**/vendor/**" "**/tests/**" "**/.github/**"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aidev-plugin-starter-zip
+          path: dist/aidev-plugin-starter.zip

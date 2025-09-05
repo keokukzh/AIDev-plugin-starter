@@ -1,0 +1,11 @@
+{
+  "core": "https://wordpress.org/wordpress-6.6.2.zip",
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true
+  },
+  "plugins": [
+    "./aidev-plugin-starter"
+  ],
+  "mappings": {}
+}
