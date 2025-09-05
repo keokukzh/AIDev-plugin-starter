@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 /**
  * Plugin Name: AIDev Plugin Starter
- * Description: Starter-Plugin mit Shortcode, REST-API, HTTP-Fetch (cache) und Cron-Refresh ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ inkl. Tests.
+ * Description: Starter-Plugin mit Shortcode, REST-API, HTTP-Fetch (cache) und Cron-Refresh ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ inkl. Tests.
  * Version:     0.2.0
  * Author:      AIDevelopment
  * License:     GPLv2 or later
@@ -152,7 +152,7 @@ function aidev_ps_get_remote_data() {
 /**
  * REST API: /wp-json/aidev/v1/message
  * GET: returns message + remote
- * POST: updates message (nonce required) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ header X-WP-Nonce (wp_create_nonce('wp_rest')).
+ * POST: updates message (nonce required) ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ header X-WP-Nonce (wp_create_nonce('wp_rest')).
  */
 add_action(
 	'rest_api_init',
@@ -288,25 +288,34 @@ add_options_page(
 } );
 
 function aidev_plugin_starter_render() {
-?>
+    echo <<<HTML
 <div class="wrap">
-<h1>AIDev Plugin Starter</h1>
-<p>Kurzer Agent-Test. Die Admin-Seite spricht mit <code>/wp-json/aidev/v1/agent</code>.</p>
-<textarea id="aidev-msg" rows="5" style="width:100%;">Sag Hallo!</textarea>
-<p><button class="button button-primary" id="aidev-send">Fragen</button></p>
-<pre id="aidev-reply" style="background:#111;color:#0f0;padding:12px;"></pre>
+  <h1>AIDev Plugin Starter</h1>
+  <p>Kurzer Agent-Test. Die Admin-Seite spricht mit <code>/wp-json/aidev/v1/agent</code>.</p>
+  <textarea id="aidev-msg" rows="5" style="width:100%;">Sag Hallo!</textarea>
+  <p><button class="button button-primary" id="aidev-send">Fragen</button></p>
+  <pre id="aidev-reply" style="background:#111;color:#0f0;padding:12px;"></pre>
 </div>
 <script>
 (function(){
-const btn = document.getElementById('aidev-send');
-btn.addEventListener('click', async () => {
-const msg = (document.getElementById('aidev-msg')).value;
-const url = (window.ajaxurl || '').includes('admin-ajax.php')
-? window.ajaxurl.replace('admin-ajax.php','rest_route=/aidev/v1/agent')
-: (location.origin + '/?rest_route=/aidev/v1/agent');
-const r = await fetch(url, {
-method: 'POST',
-headers: {'Content-Type':'application/json'},
+  const btn = document.getElementById('aidev-send');
+  btn.addEventListener('click', async () => {
+    const msg = (document.getElementById('aidev-msg')).value;
+    const url = (window.ajaxurl && window.ajaxurl.includes('admin-ajax.php'))
+      ? window.ajaxurl.replace('admin-ajax.php','rest_route=/aidev/v1/agent')
+      : (location.origin + '/?rest_route=/aidev/v1/agent');
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({message: msg})
+    });
+    const j = await r.json();
+    document.getElementById('aidev-reply').textContent = JSON.stringify(j, null, 2);
+  });
+})();
+</script>
+HTML;
+},
 body: JSON.stringify({message: msg})
 });
 const j = await r.json();
@@ -316,3 +325,4 @@ document.getElementById('aidev-reply').textContent = JSON.stringify(j, null, 2);
 </script>
 <?php
 }
+
