@@ -255,20 +255,20 @@ function aidev_plugin_starter_add( int $a, int $b ): int { // phpcs:ignore WordP
  * @return void
  */
 function aidev_ps_register_public_rest(): void {
-register_rest_route(
-'aidev/v1',
-'/message',
-array(
-'methods'             => 'GET',
-'permission_callback' => '__return_true', // public
-'callback'            => function () {
-$message = get_option( 'aidev-plugin-starter_message', 'Hello from AIDev' );
-return new \WP_REST_Response(
-array( 'message' => wp_strip_all_tags( (string) $message ) ),
-200
-);
-},
-)
-);
+	register_rest_route(
+		'aidev/v1',
+		'/message',
+		array(
+			'methods'             => 'GET',
+			'permission_callback' => '__return_true', // public
+			'callback'            => function () {
+				$message = get_option( 'aidev-plugin-starter_message', 'Hello from AIDev' );
+				return new \WP_REST_Response(
+					array( 'message' => wp_strip_all_tags( (string) $message ) ),
+					200
+				);
+			},
+		)
+	);
 }
 add_action( 'rest_api_init', 'aidev_ps_register_public_rest' );
