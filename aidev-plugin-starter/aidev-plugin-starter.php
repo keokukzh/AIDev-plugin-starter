@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 /**
  * Plugin Name: AIDev Plugin Starter
- * Description: Starter-Plugin mit Shortcode, REST-API, HTTP-Fetch (cache) und Cron-Refresh ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ inkl. Tests.
+ * Description: Starter-Plugin mit Shortcode, REST-API, HTTP-Fetch (cache) und Cron-Refresh ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ inkl. Tests.
  * Version:     0.2.0
  * Author:      AIDevelopment
  * License:     GPLv2 or later
@@ -152,7 +152,7 @@ function aidev_ps_get_remote_data() {
 /**
  * REST API: /wp-json/aidev/v1/message
  * GET: returns message + remote
- * POST: updates message (nonce required) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ header X-WP-Nonce (wp_create_nonce('wp_rest')).
+ * POST: updates message (nonce required) ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ header X-WP-Nonce (wp_create_nonce('wp_rest')).
  */
 add_action(
 	'rest_api_init',
@@ -289,7 +289,7 @@ add_action( 'admin_menu', function () {
 function aidev_plugin_starter_render() {
     echo <<<HTML
 <div class="wrap">
-  <h1>AIDev Plugin Starter</h1>
+  <h2>AIDev Plugin Starter</h2>
   <p>Kurzer Agent-Test. Die Admin-Seite spricht mit <code>/wp-json/aidev/v1/agent</code>.</p>
   <textarea id="aidev-msg" rows="5" style="width:100%;">Sag Hallo!</textarea>
   <p><button class="button button-primary" id="aidev-send">Fragen</button></p>
@@ -315,3 +315,4 @@ function aidev_plugin_starter_render() {
 </script>
 HTML;
 }
+
