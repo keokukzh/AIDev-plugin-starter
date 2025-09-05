@@ -1,14 +1,11 @@
 {
     "name":  "aidev/aidev-plugin-starter",
     "type":  "wordpress-plugin",
-    "require":  {
-
-                },
     "require-dev":  {
                         "php":  "\u003e=7.4",
                         "dealerdirect/phpcodesniffer-composer-installer":  "^1.0",
-                        "squizlabs/php_codesniffer":  "^3.9",
-                        "wp-coding-standards/wpcs":  "^3.0",
+                        "squizlabs/php_codesniffer":  "^3",
+                        "wp-coding-standards/wpcs":  "^3",
                         "phpunit/phpunit":  "^9.6",
                         "yoast/phpunit-polyfills":  "^2.0",
                         "phpstan/phpstan":  "^1.11",
