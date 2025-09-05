@@ -1,7 +1,7 @@
-﻿<?php
+<?php
 /**
  * Plugin Name: AIDev Plugin Starter
- * Description: Starter-Plugin mit Shortcode, REST-API, HTTP-Fetch (cache) und Cron-Refresh ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ inkl. Tests.
+ * Description: Starter-Plugin mit Shortcode, REST-API, HTTP-Fetch (cache) und Cron-Refresh ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ inkl. Tests.
  * Version:     0.2.0
  * Author:      AIDevelopment
  * License:     GPLv2 or later
@@ -152,7 +152,7 @@ function aidev_ps_get_remote_data() {
 /**
  * REST API: /wp-json/aidev/v1/message
  * GET: returns message + remote
- * POST: updates message (nonce required) ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ header X-WP-Nonce (wp_create_nonce('wp_rest')).
+ * POST: updates message (nonce required) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ header X-WP-Nonce (wp_create_nonce('wp_rest')).
  */
 add_action(
 	'rest_api_init',
@@ -272,19 +272,18 @@ function aidev_ps_register_public_rest(): void {
 	);
 }
 add_action( 'rest_api_init', 'aidev_ps_register_public_rest' );
-<?php
-// === AIDev Agent bootstrap (appended) ======================================
+// === AIDev Agent bootstrap (clean) ======================================
 require_once __DIR__ . '/includes/class-aidev-agent.php';
 require_once __DIR__ . '/includes/rest-agent.php';
 
 add_action( 'admin_menu', function () {
-add_options_page(
-'AIDev Plugin Starter',
-'AIDev Plugin',
-'manage_options',
-'aidev-plugin-starter',
-'aidev_plugin_starter_render'
-);
+    add_options_page(
+        'AIDev Plugin Starter',
+        'AIDev Plugin',
+        'manage_options',
+        'aidev-plugin-starter',
+        'aidev_plugin_starter_render'
+    );
 } );
 
 function aidev_plugin_starter_render() {
@@ -315,14 +314,4 @@ function aidev_plugin_starter_render() {
 })();
 </script>
 HTML;
-},
-body: JSON.stringify({message: msg})
-});
-const j = await r.json();
-document.getElementById('aidev-reply').textContent = JSON.stringify(j, null, 2);
-});
-})();
-</script>
-<?php
 }
-

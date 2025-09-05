@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+namespace AIDev;
 /**
  * Simple agent adapter with CI mock.
  */
