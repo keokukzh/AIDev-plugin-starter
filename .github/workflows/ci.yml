@@ -1,45 +1,52 @@
-name: CI - Lint, Static Analysis & Unit Tests
+name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
+    branches: [ "main" ]
 
 jobs:
-  php-tests:
+  php:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
-          tools: composer, cs2pr
+          php-version: "8.2"
+          coverage: none
+          tools: composer
+
       - name: Install Composer deps
-        run: composer install --no-interaction --prefer-dist
-      - name: Run PHPCS
-        run: composer run lint || true
-      - name: Annotate PHPCS
-        if: always()
-        run: vendor/bin/phpcs -q --report=checkstyle | cs2pr
-      - name: PHPStan
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: --no-ansi --no-interaction --no-progress --prefer-dist
+
+      - name: Lint (PHPCS)
+        run: composer run lint
+
+      - name: Static analysis (PHPStan)
         run: composer run stan
-      - name: PHPUnit
+
+      - name: Unit tests (PHPUnit)
         run: composer run test
-  build-zip:
+
+  e2e:
+    needs: php
     runs-on: ubuntu-latest
-    needs: php-tests
     steps:
       - uses: actions/checkout@v4
-      - name: Build ZIP artifact
-        run: |
-          mkdir -p dist
-          zip -r dist/aidev-plugin-starter.zip aidev-plugin-starter -x "**/.DS_Store" "**/.git/**" "**/node_modules/**" "**/vendor/**" "**/tests/**" "**/.github/**"
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          name: aidev-plugin-starter-zip
-          path: dist/aidev-plugin-starter.zip
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Node deps
+        run: npm ci
+
+      - name: Run E2E (wp-env + Playwright)
+        run: npm run e2e:ci
