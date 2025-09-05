@@ -1,28 +1,28 @@
 {
-    "name": "aidev-plugin-starter",
-    "version": "1.0.0",
-    "private": true,
-    "devDependencies": {
-        "@playwright/test": "^1.47.0",
-        "@semantic-release/changelog": "^6.0.0",
-        "@semantic-release/commit-analyzer": "^13.0.0",
-        "@semantic-release/exec": "^7.1.0",
-        "@semantic-release/git": "^10.0.0",
-        "@semantic-release/github": "^11.0.5",
-        "@semantic-release/release-notes-generator": "^14.0.0",
-        "@wordpress/env": "^10.30.0",
-        "semantic-release": "^24.0.0",
-        "wait-on": "^8.0.0"
-    },
-    "scripts": {
-        "lint": "phpcs -q --standard=phpcs.xml aidev-plugin-starter",
-        "lint:fix": "phpcbf -q --standard=phpcs.xml aidev-plugin-starter",
-        "stan": "php -d memory_limit=1536M vendor/phpstan/phpstan/phpstan analyse aidev-plugin-starter --no-progress",
-        "test": "phpunit --configuration phpunit.xml.dist",
-        "e2e": "playwright test --project=chromium --workers=1 --reporter=line",
-        "e2e:start": "wp-env start",
-        "e2e:stop": "wp-env stop",
-        "e2e:ci": "npm run e2e:start && npx wait-on http://localhost:8888 && npx playwright install --with-deps chromium && npm run e2e:report && npm run e2e:stop",
-        "e2e:report": "playwright test --project=chromium --workers=1 --reporter=junit,html,line"
-    }
+    "name":  "aidev-plugin-starter",
+    "version":  "1.0.0",
+    "private":  true,
+    "devDependencies":  {
+                            "@playwright/test":  "^1.47.0",
+                            "@semantic-release/changelog":  "^6.0.0",
+                            "@semantic-release/commit-analyzer":  "^13.0.0",
+                            "@semantic-release/exec":  "^7.1.0",
+                            "@semantic-release/git":  "^10.0.0",
+                            "@semantic-release/github":  "^11.0.5",
+                            "@semantic-release/release-notes-generator":  "^14.0.0",
+                            "@wordpress/env":  "^10.30.0",
+                            "semantic-release":  "^24.0.0",
+                            "wait-on":  "^8.0.0"
+                        },
+    "scripts":  {
+                    "lint":  "phpcs -q --standard=phpcs.xml aidev-plugin-starter",
+                    "lint:fix":  "phpcbf -q --standard=phpcs.xml aidev-plugin-starter",
+                    "stan":  "php -d memory_limit=1536M vendor/phpstan/phpstan/phpstan analyse aidev-plugin-starter --no-progress",
+                    "test":  "phpunit --configuration phpunit.xml.dist",
+                    "e2e":  "playwright test --project=chromium --workers=1 --reporter=line",
+                    "e2e:start":  "wp-env start",
+                    "e2e:stop":  "wp-env stop",
+                    "e2e:ci":  "npm run e2e:start \u0026\u0026 npx wait-on http://localhost:8888 \u0026\u0026 npx playwright install --with-deps chromium \u0026\u0026 npm run e2e:report \u0026\u0026 npm run e2e:stop",
+                    "e2e:report":  "playwright test --project=chromium --workers=1 --reporter=junit=test-results/results.xml,html,line --output=test-results"
+                }
 }
