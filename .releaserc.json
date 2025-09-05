@@ -1,0 +1,18 @@
+﻿{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/changelog", { "changelogFile": "CHANGELOG.md" }],
+    ["@semantic-release/exec", {
+      "prepareCmd": "node scripts/bump-version.js ${nextRelease.version} && mkdir -p dist && zip -r dist/aidev-plugin-starter-${nextRelease.version}.zip aidev-plugin-starter -x \"node_modules/*\" \"tests/*\" \".github/*\" \"dist/*\""
+    }],
+    ["@semantic-release/git", {
+      "assets": ["CHANGELOG.md", "aidev-plugin-starter/aidev-plugin-starter.php"],
+      "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+    }],
+    ["@semantic-release/github", {
+      "assets": [{ "path": "dist/aidev-plugin-starter-${nextRelease.version}.zip", "label": "aidev-plugin-starter-${nextRelease.version}.zip" }]
+    }]
+  ]
+}
