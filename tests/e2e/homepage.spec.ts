@@ -1,14 +1,12 @@
-﻿import { test, expect } from "@playwright/test";
+﻿import { test, expect } from '@playwright/test';
 
-// Erlaube override über ENV, sonst akzeptiere beides:
 const expectedTitle =
-  process.env.E2E_SITE_TITLE
-    ? new RegExp(process.env.E2E_SITE_TITLE, "i")
-    : /AIDev-plugin-starter|WordPress/i;
+  process.env.E2E_EXPECTED_TITLE_REGEX
+    ? new RegExp(process.env.E2E_EXPECTED_TITLE_REGEX)
+    : /WordPress|AIDev|AIDev-plugin-starter/i;
 
-test("homepage loads", async ({ page }) => {
-  await page.goto("/");
+test('homepage loads', async ({ page }) => {
+  await page.goto('/'); // nutzt baseURL aus config
   await expect(page).toHaveTitle(expectedTitle);
-  // kleine Zusatzsicherheit: Body sichtbar
-  await expect(page.locator("body")).toBeVisible();
+  await expect(page.locator('body')).toBeVisible();
 });

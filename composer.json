@@ -18,7 +18,7 @@
                     "lint":  "phpcs -q --standard=phpcs.xml aidev-plugin-starter",
                     "lint:fix":  "phpcbf -q --standard=phpcs.xml aidev-plugin-starter",
                     "test":  "phpunit --configuration phpunit.xml.dist",
-                    "stan":  "phpstan analyse --no-parallel --memory-limit=1G"
+                    "stan":  "php -d memory_limit=1536M vendor/phpstan/phpstan/phpstan analyse aidev-plugin-starter --no-progress"
                 },
     "config":  {
                    "allow-plugins":  {

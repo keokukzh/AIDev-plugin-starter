@@ -1,5 +1,6 @@
 {
   "name": "aidev-plugin-starter",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "@playwright/test": "^1.47.0",
@@ -11,8 +12,10 @@
     "semantic-release": "^24.0.0"
   },
   "scripts": {
-    "e2e": "playwright test",
-    "e2e:install": "npx playwright install --with-deps",
-    "release": "semantic-release"
+    "lint": "phpcs -q --standard=phpcs.xml aidev-plugin-starter",
+    "lint:fix": "phpcbf -q --standard=phpcs.xml aidev-plugin-starter",
+    "stan": "php -d memory_limit=1536M vendor/phpstan/phpstan/phpstan analyse aidev-plugin-starter --no-progress",
+    "test": "phpunit --configuration phpunit.xml.dist",
+    "e2e": "playwright test"
   }
 }

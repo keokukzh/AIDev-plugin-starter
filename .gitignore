@@ -1,21 +1,10 @@
-﻿# Node
 node_modules/
+vendor/
+
+# Playwright
 test-results/
 playwright-report/
 blob-report/
 
-# Composer
-vendor/
-composer.lock
-
-# Builds
-dist/
-
-# wp-env (Docker WordPress runtime data)
+# wp-env
 .wp-env/
-.wp-env.json.local
-
-# OS / Editor
-.DS_Store
-Thumbs.db
-*.log

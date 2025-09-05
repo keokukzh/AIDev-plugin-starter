@@ -1,56 +1,17 @@
-﻿# --- Default text behavior ---
-* text=auto eol=lf
-# --- Source files (LF) ---
-*.php   text eol=lf
-*.inc   text eol=lf
-*.phpt  text eol=lf
-*.js    text eol=lf
-*.jsx   text eol=lf
-*.ts    text eol=lf
-*.tsx   text eol=lf
-*.json  text eol=lf
-*.yml   text eol=lf
-*.yaml  text eol=lf
-*.md    text eol=lf
-*.txt   text eol=lf
-*.neon  text eol=lf
-*.xml   text eol=lf
-*.html  text eol=lf
-*.css   text eol=lf
-*.scss  text eol=lf
-*.sh    text eol=lf
-*.pot   text eol=lf
-*.po    text eol=lf
-*.svg   text eol=lf
-# --- Windows scripts (CRLF) ---
-*.bat   text eol=crlf
-*.cmd   text eol=crlf
-*.ps1   text eol=crlf
-# --- Binary files ---
-*.png   binary
-*.jpg   binary
-*.jpeg  binary
-*.gif   binary
-*.ico   binary
-*.webp  binary
-*.zip   binary
-*.phar  binary
-*.mo    binary
-*.woff  binary
-*.woff2 binary
-*.ttf   binary
-*.eot   binary
-*.pdf   binary
-*.psd   binary
-# --- Exclude from "git archive" exports (optional) ---
-/.github        export-ignore
-/tests          export-ignore
-/node_modules   export-ignore
-/vendor         export-ignore
-/.wp-env.json   export-ignore
-/.gitattributes export-ignore
-/.gitignore     export-ignore
-/.editorconfig  export-ignore
-/phpunit.xml*   export-ignore
-/phpstan.neon*  export-ignore
-/phpcs.xml      export-ignore
+* text=auto
+
+# Code immer LF
+*.php  text eol=lf
+*.js   text eol=lf
+*.ts   text eol=lf
+*.json text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.xml  text eol=lf
+*.md   text eol=lf
+*.sh   text eol=lf
+
+# Windows-Skripte CRLF
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
