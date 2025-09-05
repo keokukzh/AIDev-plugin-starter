@@ -1,0 +1,7 @@
+﻿{
+    "port":  8888,
+    "testsPort":  8890,
+    "plugins":  [
+                    "./aidev-plugin-starter"
+                ]
+}
